@@ -19,3 +19,4 @@ dist/
 
 # Ignore files
 checklist.md
+data.json
