@@ -3,6 +3,7 @@ package service
 import (
 	"log"
 	"net/http"
+	"path"
 	"strings"
 	"time"
 )
@@ -17,7 +18,7 @@ func Middleware(next http.HandlerFunc) http.HandlerFunc {
 	})
 }
 
-//allowCORS from any origin. TODO disable in prod
+// allowCORS from any origin. TODO disable in prod
 func AllowCORS(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if origin := r.Header.Get("Origin"); origin != "" {
@@ -37,5 +38,5 @@ func preflightHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", strings.Join(headers, ","))
 	methods := []string{"GET", "HEAD", "POST", "PUT", "DELETE"}
 	w.Header().Set("Access-Control-Allow-Methods", strings.Join(methods, ","))
-	log.Println("preflight request for", r.URL.Path)
+	log.Println("preflight request for", path.Clean(r.URL.Path))
 }
