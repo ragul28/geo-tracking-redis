@@ -1,9 +1,9 @@
 build_docker:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ./geo-tracking-redis
+	CGO_ENABLED=0 go build ./geo-tracking-redis
 	docker build -t geo-tracking-redis .
 
 build:
-	GOOS=linux GOARCH=amd64 go build -ldflags="-s -w"
+	go build -ldflags="-s -w"
 
 run:
 	go build && ./geo-tracking-redis
